@@ -1,17 +1,9 @@
-# OSS-Rust-SDK
+use std::{collections::HashMap, env};
 
-[![Latest Version](https://img.shields.io/crates/v/oss-sdk-rs.svg)](https://crates.io/crates/oss-sdk-rs)
+use oss_sdk_rs::{errors::OSSError, prelude::OSS, object::ObjectAPI};
 
-> Fork from https://github.com/NoXF/oss-rust-sdk
-
-It's an unofficial Rust port for https://github.com/aliyun/aliyun-oss-cpp-sdk, just implement core APIs of https://help.aliyun.com/document_detail/31977.html, everyone is welcome to submit a PR to implement which interface you need.
-
-# Getting Started
-
-## Put Object
-```rust
-async fn main() -> Result<(), OSSError> {
-    let buffer = "test async put object from buffer";
+#[tokio::main]
+async fn main()->Result<(), OSSError>{
     dotenvy::dotenv().unwrap();
 
     let buffer = "test async put object from buffer";
@@ -32,7 +24,7 @@ async fn main() -> Result<(), OSSError> {
     oss_sub_resource.insert("acl", None);
     oss_sub_resource.insert("response-content-type", Some("ContentType"));
 
-    oss_instance
+    oss
         .put_object(
             buffer.as_bytes(),
             "test/put_object.txt",
@@ -43,11 +35,3 @@ async fn main() -> Result<(), OSSError> {
 
     Ok(())
 }
-```
-- More example: [examples](https://github.com/iFREEGROUP/oss-rust-sdk/tree/master/examples)
-
-Note: I've removed the blocking code for the repository. If you need it, please move here: [NoXF/oss-rust-sdk](https://github.com/NoXF/oss-rust-sdk)
-
-## License
-
-- Apache License 2.0.
